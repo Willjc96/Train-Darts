@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { LowReverseTrainEmoji, ReverseTrainEmoji, SnailEmoji } from "../Emojis";
+import { LowReverseTrainEmoji, SnailEmoji } from "../Emojis";
 type Props = {
   total: number;
 };

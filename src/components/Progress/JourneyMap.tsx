@@ -67,7 +67,7 @@ type Props = {
 };
 
 export default function JourneyMap({ total }: Props) {
-  const { currentIndex, overallProgress } = getJourneyProgress(total);
+  const { overallProgress } = getJourneyProgress(total);
   const maxScore = JOURNEY_STATIONS[JOURNEY_STATIONS.length - 1].score;
   console.log(">>>", { overallProgress, total });
   return (

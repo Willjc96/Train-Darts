@@ -2,7 +2,7 @@ import JourneyMap from "../components/Progress/JourneyMap";
 import LocalProgress from "../components/Progress/LocalProgress";
 import FinishPage from "../components/Public/FinishPage";
 import TrainProgress from "../components/Public/TrainProgress";
-import TrainSubProgress from "../components/Public/TrainSubProgress";
+// import TrainSubProgress from "../components/Public/TrainSubProgress";
 import { useRealtimeTurns } from "../hooks/useRealtimeTurns";
 import { useTurnsStore } from "../store/useTurnsStore";
 import {

@@ -4,11 +4,11 @@ import { ReverseFullTrainEmoji } from "../Emojis";
 import { motion } from "framer-motion";
 import React from "react";
 
-const Wrapper = styled.div`
-  position: relative;
-  width: 100%;
-  padding: 4rem 0;
-`;
+// const Wrapper = styled.div`
+//   position: relative;
+//   width: 100%;
+//   padding: 4rem 0;
+// `;
 
 const CelebrationWrapper = styled.div`
   min-height: 100vh;
@@ -23,15 +23,15 @@ const CelebrationWrapper = styled.div`
   text-align: center;
 `;
 
-const Train = styled.div<{ progress: number }>`
-  position: absolute;
-  top: 50%;
-  left: calc(${({ progress }) => Math.min(progress, 100)}% - 40px);
-  transform: scale(-1, 1) translateY(-100%);
-  font-size: 4rem;
-  transition: left 0.7s ease;
-  filter: drop-shadow(0 0 20px gold);
-`;
+// const Train = styled.div<{ progress: number }>`
+//   position: absolute;
+//   top: 50%;
+//   left: calc(${({ progress }) => Math.min(progress, 100)}% - 40px);
+//   transform: scale(-1, 1) translateY(-100%);
+//   font-size: 4rem;
+//   transition: left 0.7s ease;
+//   filter: drop-shadow(0 0 20px gold);
+// `;
 
 const CongratulationsHeader = styled.h1`
   position: absolute;

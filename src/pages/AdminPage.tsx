@@ -11,7 +11,8 @@ export default function AdminPage() {
 
   const [name, setName] = useState("");
   const [score, setScore] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();

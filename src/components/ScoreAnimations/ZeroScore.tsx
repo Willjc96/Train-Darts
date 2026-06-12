@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { CowEmoji, ReverseCowEmoji, ZeroReverseTrainEmoji } from "../Emojis";
-import { DartboardOuterRing } from "../Dartboard/DartboardOuterRing";
-import { Svg } from "../Dartboard/Dartboard.styles";
-import { BOARD_SIZE } from "../Dartboard/constants";
+// import { DartboardOuterRing } from "../Dartboard/DartboardOuterRing";
+// import { Svg } from "../Dartboard/Dartboard.styles";
+// import { BOARD_SIZE } from "../Dartboard/constants";
 export const ZeroScoreAnimation = () => {
   return (
     <motion.div
