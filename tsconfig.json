@@ -7,5 +7,6 @@
   "compilerOptions": {
     "noUnusedLocals": false,
     "noUnusedParameters": false
-  }
+  },
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
