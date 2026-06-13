@@ -136,7 +136,8 @@ export default function Dartboard({
           onClick={() => {
             setMarkers((prev) => [
               ...prev.slice(-2),
-              polarToCartesian(CENTER, CENTER, 380, Math.random() * 360),
+              polarToCartesian(CENTER, CENTER, 360, Math.random() * 360),
+              // centerOfBoard, centerOfBoard, distanceFromCenter, randomAngle),
             ]);
 
             onHit({

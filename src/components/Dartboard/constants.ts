@@ -1,6 +1,6 @@
 // dartboardConstants.ts
 
-export const BOARD_SIZE = 800;
+export const BOARD_SIZE = 750;
 export const CENTER = BOARD_SIZE / 2;
 
 export const DARTBOARD_NUMBERS = [
