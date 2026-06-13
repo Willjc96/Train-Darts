@@ -11,7 +11,11 @@ import React from "react";
 // `;
 
 const CelebrationWrapper = styled.div`
-  min-height: 100vh;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
   background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
 
   display: flex;

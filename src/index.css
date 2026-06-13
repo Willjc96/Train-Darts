@@ -51,7 +51,11 @@
 }
 
 #root {
-  width: 1650px;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;

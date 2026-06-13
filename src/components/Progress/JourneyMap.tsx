@@ -9,7 +9,7 @@ import { SmallReverseTrainEmoji } from "../Emojis";
 const Wrapper = styled.div`
   position: relative;
   width: 1600px;
-  padding: 2rem 1rem 4rem;
+  padding: 2rem 3rem 4rem;
 `;
 
 const Line = styled.div`
