@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import {
-  CowEmoji,
   GoodReverseTrainEmoji,
   Tree1Emoji,
   Tree2Emoji,
