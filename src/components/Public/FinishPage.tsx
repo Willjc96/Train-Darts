@@ -36,11 +36,13 @@ const CelebrationWrapper = styled.div`
 const CongratulationsHeader = styled.h1`
   position: absolute;
   top: 20%;
+  color: white;
 `;
 
 const CongratulationsSubHeader = styled.h2`
   position: absolute;
   top: 30%;
+  color: white;
 `;
 
 const DIRECTIONS = [
