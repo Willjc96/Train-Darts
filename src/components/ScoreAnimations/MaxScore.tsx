@@ -58,7 +58,7 @@ export const MaxScoreAnimation = () => {
         <div
           style={{
             position: "absolute",
-            width: "510px",
+            width: "550px",
             height: "450px",
             overflow: "hidden",
             top: "90px",
@@ -89,11 +89,11 @@ export const MaxScoreAnimation = () => {
         <div
           style={{
             position: "absolute",
-            width: "480px",
+            width: "515px",
             height: "1000px",
             overflow: "hidden",
             top: "150px",
-            borderRadius: "120px",
+            borderRadius: "115px",
           }}
         >
           {/* FAST TRAIN MULTIPLE LAPS */}
@@ -120,11 +120,11 @@ export const MaxScoreAnimation = () => {
         <div
           style={{
             position: "absolute",
-            top: "95px",
-            width: "555px",
-            height: "510px",
+            top: "90px",
+            width: "480px",
+            height: "520px",
             overflow: "hidden",
-            borderRadius: "280px",
+            borderRadius: "180px",
           }}
         >
           <div>
@@ -152,12 +152,11 @@ export const MaxScoreAnimation = () => {
         <div
           style={{
             position: "absolute",
-            top: "105px",
-            left: "400px",
+            top: "90px",
             width: "355px",
-            height: "490px",
+            height: "520px",
             overflow: "hidden",
-            borderRadius: "80px",
+            borderRadius: "75px",
           }}
         >
           <div>

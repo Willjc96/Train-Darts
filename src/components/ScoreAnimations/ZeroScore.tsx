@@ -43,11 +43,12 @@ export const ZeroScoreAnimation = () => {
         <div
           style={{
             position: "relative",
-            width: "520px",
+            width: "560px",
             height: "100px",
             overflow: "hidden",
             left: "0px",
             top: "-20px",
+            borderRadius: "35px",
           }}
         >
           {/* STATIC TRAIN */}

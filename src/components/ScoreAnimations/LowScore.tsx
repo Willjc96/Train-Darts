@@ -47,7 +47,7 @@ export const LowScoreAnimation = ({ total }: Props) => {
         <div
           style={{
             position: "relative",
-            width: "520px",
+            width: "555px",
             height: "100px",
             overflow: "hidden",
             left: "0px",
@@ -77,8 +77,8 @@ export const LowScoreAnimation = ({ total }: Props) => {
           {/* SNAIL OR TURTLE OVERTAKING */}
           {total % 2 == 0 ? (
             <motion.div
-              initial={{ x: -100 }}
-              animate={{ x: 550 }}
+              initial={{ x: -0 }}
+              animate={{ x: 650 }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
