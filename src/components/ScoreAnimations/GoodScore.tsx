@@ -25,7 +25,7 @@ const environment5 = (
     }}
   >
     <div style={{ display: "flex", flexDirection: "row" }}>
-      {CowEmoji}
+      {/* {CowEmoji} */}
       {Tree1Emoji}
     </div>
   </div>
@@ -133,7 +133,16 @@ export const GoodScoreAnimation = ({ total }: Props) => {
         </motion.div>
 
         {/* TRAIN (BELOW SCORE, SEPARATED VISUALLY) */}
-        <div>
+        <div
+          style={{
+            // overflow: "hidden",
+            position: "relative",
+            width: "520px",
+            // zIndex: 55,
+            // height: "100px",
+            left: "260px",
+          }}
+        >
           <motion.div
             // initial={{ x: -100, scale: 0.8 }}
             // animate={{ x: [-10, 0, 10, 0] }}
@@ -146,7 +155,16 @@ export const GoodScoreAnimation = ({ total }: Props) => {
               filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
             }}
           >
-            <div>
+            <div
+              style={{
+                position: "relative",
+                width: "520px",
+                height: "100px",
+                overflow: "hidden",
+                left: "-260px",
+                top: "50px",
+              }}
+            >
               <motion.div
                 transition={{
                   repeat: Infinity,
@@ -154,16 +172,16 @@ export const GoodScoreAnimation = ({ total }: Props) => {
                 }}
                 style={{
                   position: "absolute",
-                  left: "-260px",
-                  top: "0px",
+                  left: "0px",
+
                   fontSize: "4rem",
                 }}
               >
                 {GoodReverseTrainEmoji}
               </motion.div>
               <motion.div
-                initial={{ x: 180 }}
-                animate={{ x: -250 }}
+                initial={{ x: 555 }}
+                animate={{ x: -190 }}
                 transition={{
                   duration: 1,
                   repeat: Infinity,
@@ -171,7 +189,7 @@ export const GoodScoreAnimation = ({ total }: Props) => {
                 }}
                 style={{
                   position: "absolute",
-                  top: "25px",
+                  top: "5px",
                   fontSize: "4rem",
                 }}
               >

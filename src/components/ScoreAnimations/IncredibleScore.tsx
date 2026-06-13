@@ -63,7 +63,7 @@ export const IncredibleScoreAnimation = ({ total }: Props) => {
               }}
               style={{
                 position: "absolute",
-                top: "12px",
+                top: "-3px",
                 left: "-200px",
                 fontSize: "4rem",
               }}

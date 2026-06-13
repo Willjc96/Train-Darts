@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { JOURNEY_STATIONS } from "./constants";
 import { getJourneyProgress } from "./journeyHelpers";
-import { ReverseTrainEmoji } from "../Emojis";
+import { SmallReverseTrainEmoji } from "../Emojis";
 
 const Wrapper = styled.div`
   position: relative;
+  width: 1600px;
   padding: 2rem 1rem 4rem;
 `;
 
@@ -69,7 +70,6 @@ type Props = {
 export default function JourneyMap({ total }: Props) {
   const { overallProgress } = getJourneyProgress(total);
   const maxScore = JOURNEY_STATIONS[JOURNEY_STATIONS.length - 1].score;
-  console.log(">>>", { overallProgress, total });
   return (
     <Wrapper>
       <Line />
@@ -85,7 +85,7 @@ export default function JourneyMap({ total }: Props) {
           duration: 1,
         }}
       >
-        {ReverseTrainEmoji}
+        <SmallReverseTrainEmoji progress={overallProgress} />
       </Train>
 
       <Stations>

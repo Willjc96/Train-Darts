@@ -84,7 +84,7 @@ export default function AdminPage() {
         </form>
 
         <div className="space-y-4">
-          <h3>Previous Scores</h3>
+          <h3>Recent Scores</h3>
           {turns.slice(0, 10).map((turn) => (
             <div
               key={turn.id}

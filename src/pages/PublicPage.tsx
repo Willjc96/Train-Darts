@@ -34,13 +34,13 @@ export default function PublicPage() {
           <div className="text-2xl mt-4 text-zinc-400">
             {`${remaining.toLocaleString()} remaining to reach goal`}
           </div>
-          <TrainProgress progress={percentProgress} />
+          {/* <TrainProgress progress={percentProgress} /> */}
           {/* {TrainSubProgress({ progress: subProgress })} */}
           {/* <TrainSubProgress progress={progress} /> */}
           <JourneyMap total={getTotalScored(score)} />
 
           <LocalProgress total={getTotalScored(score)} />
-          <div className="text-2xl mt-4 text-zinc-400">Score progress</div>
+          <div className="text-2xl mt-4 text-zinc-400">Recent Scores</div>
         </div>
 
         <div className="w-full h-6 bg-zinc-800 rounded-full overflow-hidden mb-8">

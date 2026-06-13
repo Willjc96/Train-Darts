@@ -1,4 +1,20 @@
-import img from "../../assets/LNER_Train.png";
+import train from "../../assets/LNER_Train.png";
+import snail from "../../assets/snail.png";
+import cow from "../../assets/Cow.svg";
+import turtle from "../../assets/Turtle.svg";
+
+const Emoji = ({ emoji, size = 32 }: { emoji: string; size?: number }) => {
+  const code = emoji.codePointAt(0)?.toString(16);
+
+  return (
+    <img
+      src={`https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${code}.svg`}
+      alt={emoji}
+      width={size}
+      height={size}
+    />
+  );
+};
 
 export const LongSidewaysFireEmoji = (
   <div
@@ -6,10 +22,9 @@ export const LongSidewaysFireEmoji = (
       transform: "scaleX(-4) rotate(90deg)",
       width: "150px",
       marginRight: "0px",
-      // marginTop: "50px",
     }}
   >
-    🔥
+    <Emoji emoji="🔥" size={62} />
   </div>
 );
 export const ReverseWindEmoji = (
@@ -18,7 +33,7 @@ export const ReverseWindEmoji = (
       transform: "scaleX(-1)",
     }}
   >
-    💨
+    <Emoji emoji="💨" size={42} />
   </div>
 );
 
@@ -31,7 +46,34 @@ export const ReverseWindEmoji = (
 //     🚂
 //   </div>
 // );
-// export const ReverseTrainEmoji = <img src={img} alt="" />;
+// export const ReverseTrainEmoji = <img src={train} alt="" />;
+export const SmallReverseTrainEmoji = ({ progress }: { progress: number }) => {
+  const left = -1565 + (1565 * progress) / 100;
+  return (
+    <div
+      style={{
+        width: "1650px",
+        height: "100px",
+        overflow: "hidden",
+        position: "relative",
+        display: "inline-block",
+        left: "-10px",
+      }}
+    >
+      <img
+        src={train}
+        alt=""
+        style={{
+          position: "absolute",
+          left: `${left}px`, // 0 for 100% progress, -1650px for 0% progress
+          top: 0,
+          width: "1565px",
+          height: "50px",
+        }}
+      />
+    </div>
+  );
+};
 export const ReverseTrainEmoji = (
   <div
     style={{
@@ -43,7 +85,7 @@ export const ReverseTrainEmoji = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -65,7 +107,7 @@ export const ReverseFullTrainEmoji = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -87,7 +129,7 @@ export const GoodReverseTrainEmoji = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -109,7 +151,7 @@ export const GreatReverseTrainEmoji = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -131,7 +173,7 @@ export const LowReverseTrainEmoji = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -153,7 +195,7 @@ export const ZeroReverseTrainEmoji = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -175,7 +217,7 @@ export const ReverseTrainEmoji2 = (
     }}
   >
     <img
-      src={img}
+      src={train}
       alt=""
       style={{
         position: "absolute",
@@ -190,30 +232,89 @@ export const ReverseTrainEmoji2 = (
 export const SidewaysFireEmoji = (
   <div
     style={{
-      transform: "scaleX(-3) rotate(90deg)",
-      width: "150px",
+      transform: "scaleX(-4) rotate(90deg)",
+      width: "110px",
     }}
   >
-    🔥
+    <img
+      src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f525.svg"
+      alt="fire"
+      style={{ width: 42, height: 42 }}
+    />
   </div>
 );
 
-export const SnailEmoji = <div>🐌</div>;
+export const SnailEmoji = (
+  <div>
+    <img
+      src={snail}
+      alt=""
+      style={{
+        position: "absolute",
+        left: "0px", // move image inside crop window
+        top: "-5px",
+        width: "55px",
+        transform: "scaleX(-1)",
+      }}
+    />
+  </div>
+);
 
-export const FireEmoji = <div>🔥</div>;
+export const TurtleEmoji = (
+  <div>
+    <img
+      src={turtle}
+      alt=""
+      style={{
+        position: "absolute",
+        left: "0px", // move image inside crop window
+        top: "-20px",
+        width: "85px",
+      }}
+    />
+  </div>
+);
 
-export const Tree1Emoji = <div>🌳</div>;
-export const Tree2Emoji = <div>🌲</div>;
-export const Tree3Emoji = <div>🌴</div>;
-export const Tree4Emoji = <div>🪾</div>;
+export const FireEmoji = (
+  <div>
+    <Emoji emoji="🔥" size={42} />
+  </div>
+);
+
+export const Tree1Emoji = (
+  <div>
+    <Emoji emoji="🌳" size={68} />
+  </div>
+);
+export const Tree2Emoji = (
+  <div>
+    <Emoji emoji="🌲" size={68} />
+  </div>
+);
+export const Tree3Emoji = (
+  <div>
+    <Emoji emoji="🌴" size={68} />
+  </div>
+);
+export const Tree4Emoji = (
+  <div>
+    <Emoji emoji="🪾" size={68} />
+  </div>
+);
 
 export const CowEmoji = (
   <div
     style={{
       transform: "scaleX(-1)",
+      // height: "150px",
+      width: "60px",
     }}
   >
-    🐄
+    <img src={cow} alt="" style={{ height: "50px", marginTop: "0px" }} />
   </div>
 );
-export const ReverseCowEmoji = <div>🐄</div>;
+export const ReverseCowEmoji = (
+  <div style={{ width: "60px" }}>
+    <img src={cow} alt="" style={{ height: "50px", marginTop: "0px" }} />
+  </div>
+);

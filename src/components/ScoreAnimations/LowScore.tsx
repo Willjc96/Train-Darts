@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { LowReverseTrainEmoji, SnailEmoji } from "../Emojis";
+import { LowReverseTrainEmoji, SnailEmoji, TurtleEmoji } from "../Emojis";
 type Props = {
   total: number;
 };
@@ -74,23 +74,44 @@ export const LowScoreAnimation = ({ total }: Props) => {
             </motion.div>
           </div>
 
-          {/* SNAIL OVERTAKING */}
-          <motion.div
-            initial={{ x: -100 }}
-            animate={{ x: 550 }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              position: "absolute",
-              top: "25px",
-              fontSize: "4rem",
-            }}
-          >
-            {SnailEmoji}
-          </motion.div>
+          {/* SNAIL OR TURTLE OVERTAKING */}
+          {total % 2 == 0 ? (
+            <motion.div
+              initial={{ x: -100 }}
+              animate={{ x: 550 }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                position: "absolute",
+                top: "25px",
+                fontSize: "4rem",
+                scaleX: "-1",
+              }}
+            >
+              {SnailEmoji}
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ x: -100 }}
+              animate={{ x: 650 }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                position: "absolute",
+                top: "25px",
+                fontSize: "4rem",
+                scaleX: "-1",
+              }}
+            >
+              {TurtleEmoji}
+            </motion.div>
+          )}
         </div>
       </div>
     </motion.div>

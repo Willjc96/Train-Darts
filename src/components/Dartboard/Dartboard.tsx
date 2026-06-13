@@ -22,7 +22,7 @@ interface DartboardProps {
   onHit: (hit: DartHit) => void;
   total: number;
   darts: DartHit[];
-  celebrate: boolean;
+  maxScore: boolean;
   zeroScore: boolean;
   incredibleScore: boolean;
   greatScore: boolean;
@@ -47,7 +47,7 @@ export default function Dartboard({
   onHit,
   total,
   darts,
-  celebrate,
+  maxScore,
   zeroScore,
   incredibleScore,
   greatScore,
@@ -60,7 +60,7 @@ export default function Dartboard({
   // const total = darts.reduce((sum, dart) => sum + dart.score, 0);
 
   const scoreAnimationActive = [
-    celebrate,
+    maxScore,
     zeroScore,
     incredibleScore,
     greatScore,
@@ -70,7 +70,7 @@ export default function Dartboard({
   return (
     <>
       <div style={{ position: "relative", width: "100%" }}>
-        {celebrate && <MaxScoreAnimation />}
+        {maxScore && <MaxScoreAnimation />}
         {zeroScore && <ZeroScoreAnimation />}
         {incredibleScore && <IncredibleScoreAnimation total={total} />}
         {greatScore && <GreatScoreAnimation total={total} />}

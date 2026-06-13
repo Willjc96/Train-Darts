@@ -37,7 +37,7 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
   const [darts, setDarts] = useState<DartHit[]>([]);
   const [lastTotal, setLastTotal] = useState(0);
   const [markers, setMarkers] = React.useState<{ x: number; y: number }[]>([]);
-  const [celebrate, setCelebrate] = React.useState(false);
+  const [maxScore, setMaxScore] = React.useState(false);
   const [incredibleScore, setIncredibleScore] = useState(false);
   const [greatScore, setGreatScore] = useState(false);
   const [goodScore, setGoodScore] = useState(false);
@@ -60,7 +60,7 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
   const handleSubmit = () => {
     const total = darts.reduce((s, d) => s + d.score, 0);
     setLastTotal(total);
-    if (total === 180) setCelebrate(true);
+    if (total === 180) setMaxScore(true);
     else if (total === 0) setZeroScore(true);
     else if (total < 30) setLowScore(true);
     else if (total < 100) setGoodScore(true);
@@ -69,7 +69,7 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
 
     // duration of animation overlay
     setTimeout(() => {
-      setCelebrate(false);
+      setMaxScore(false);
       setZeroScore(false);
       setIncredibleScore(false);
       setGreatScore(false);
@@ -92,7 +92,7 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
         onHit={handleHit}
         total={lastTotal}
         darts={darts}
-        celebrate={celebrate}
+        maxScore={maxScore}
         zeroScore={zeroScore}
         incredibleScore={incredibleScore}
         greatScore={greatScore}
