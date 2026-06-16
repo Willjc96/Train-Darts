@@ -44,7 +44,7 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
   const [lowScore, setLowScore] = useState(false);
   const [zeroScore, setZeroScore] = useState(false);
 
-  const ANIMATION_DURATION = 7000;
+  const ANIMATION_DURATION = 4000;
 
   const handleHit = (hit: DartHit) => {
     // if (darts.length >= 3) return;
