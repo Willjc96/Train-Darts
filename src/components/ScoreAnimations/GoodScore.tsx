@@ -136,10 +136,6 @@ export const GoodScoreAnimation = ({ total }: Props) => {
           style={{
             // overflow: "hidden",
             position: "relative",
-            width: "520px",
-            // zIndex: 55,
-            // height: "100px",
-            left: "260px",
           }}
         >
           <motion.div
@@ -157,10 +153,9 @@ export const GoodScoreAnimation = ({ total }: Props) => {
             <div
               style={{
                 position: "relative",
-                width: "520px",
+                width: "560px",
                 height: "100px",
                 overflow: "hidden",
-                left: "-260px",
                 top: "50px",
               }}
             >
