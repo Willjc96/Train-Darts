@@ -23,10 +23,7 @@ const environment5 = (
       justifyContent: "space-between",
     }}
   >
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      {/* {CowEmoji} */}
-      {Tree1Emoji}
-    </div>
+    <div style={{ display: "flex", flexDirection: "row" }}>{Tree1Emoji}</div>
   </div>
 );
 
@@ -50,150 +47,78 @@ const getEnvironment = (total: number) => {
   return environment1;
 };
 
-// const environment5 = (
-//   <div
-//     style={{
-//       display: "flex",
-//       flexDirection: "row",
-//       justifyContent: "space-between",
-//     }}
-//   >
-//     <div style={{ display: "flex", flexDirection: "row" }}>
-//       {CowEmoji}
-//       {Tree1Emoji}
-//     </div>
-//   </div>
-// );
-
-// const getRandomEnvironment = (randomNumber: number) => {
-//   if (randomNumber === 0) {
-//     return environment1;
-//   }
-//   if (randomNumber === 1) {
-//     return environment2;
-//   }
-//   if (randomNumber === 2) {
-//     return environment3;
-//   }
-//   if (randomNumber === 3) {
-//     return environment4;
-//   }
-// };
 export const GoodScoreAnimation = ({ total }: Props) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
       style={{
-        position: "absolute",
-        inset: 0,
+        overflowX: "hidden",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        pointerEvents: "none",
-        zIndex: 55,
-        borderRadius: "20rem",
-        background:
-          "radial-gradient(circle, rgba(0,0,0,0.45), rgba(0,0,0,0.9))",
+        flexDirection: "column",
+        gap: "10px",
+        width: "560px",
       }}
     >
-      {/* CONTENT WRAPPER */}
-      <div
+      {/* SCORE (TOP, CLEAR, NO TRAIN OVERLAP) */}
+      <motion.div
+        animate={{
+          scale: [1, 1.05, 1],
+          opacity: 1,
+          textShadow: [
+            "0 0 10px rgba(255,255,255,0.2)",
+            "0 0 25px rgba(255,255,255,0.5)",
+            "0 0 10px rgba(255,255,255,0.2)",
+          ],
+        }}
+        transition={{ duration: 1 }}
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "30px",
-          marginBottom: "150px",
+          height: "50px",
+          alignContent: "center",
+          fontSize: "4rem",
+          fontWeight: "bold",
+          color: "#fff",
+          textShadow: "0 0 20px rgba(255,255,255,0.3)",
+          letterSpacing: "2px",
         }}
       >
-        {/* SCORE (TOP, CLEAR, NO TRAIN OVERLAP) */}
-        <motion.div
-          initial={{ scale: 0.6, opacity: 0 }}
-          animate={{
-            scale: [1, 1.05, 1],
-            opacity: 1,
-            textShadow: [
-              "0 0 10px rgba(255,255,255,0.2)",
-              "0 0 25px rgba(255,255,255,0.5)",
-              "0 0 10px rgba(255,255,255,0.2)",
-            ],
-          }}
-          transition={{ duration: 1 }}
-          style={{
-            fontSize: "4rem",
-            fontWeight: "bold",
-            color: "#fff",
-            textShadow: "0 0 20px rgba(255,255,255,0.3)",
-            letterSpacing: "2px",
-          }}
-        >
-          {total}
-        </motion.div>
+        {total}
+      </motion.div>
 
-        {/* TRAIN (BELOW SCORE, SEPARATED VISUALLY) */}
+      {/* TRAIN (BELOW SCORE, SEPARATED VISUALLY) */}
+      <motion.div
+        transition={{ repeat: Infinity, duration: 1.2 }}
+        style={{
+          filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
+        }}
+      >
         <div
           style={{
-            // overflow: "hidden",
-            position: "relative",
+            width: "560px",
+            height: "100px",
           }}
         >
-          <motion.div
-            // initial={{ x: -100, scale: 0.8 }}
-            // animate={{ x: [-10, 0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.2 }}
+          <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              fontSize: "3.5rem",
-              filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
+              position: "absolute",
             }}
           >
-            <div
-              style={{
-                position: "relative",
-                width: "560px",
-                height: "100px",
-                overflow: "hidden",
-                top: "50px",
-              }}
-            >
-              <motion.div
-                transition={{
-                  repeat: Infinity,
-                  duration: 2,
-                }}
-                style={{
-                  position: "absolute",
-                  left: "0px",
-
-                  fontSize: "4rem",
-                }}
-              >
-                {GoodReverseTrainEmoji}
-              </motion.div>
-              <motion.div
-                initial={{ x: 555 }}
-                animate={{ x: -190 }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                style={{
-                  position: "absolute",
-                  top: "5px",
-                  fontSize: "4rem",
-                }}
-              >
-                {getEnvironment(total)}
-              </motion.div>
-            </div>
+            {GoodReverseTrainEmoji}
+          </div>
+          <motion.div
+            initial={{ x: 555 }}
+            animate={{ x: -190 }}
+            transition={{
+              duration: 1,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            style={{
+              position: "absolute",
+            }}
+          >
+            {getEnvironment(total)}
           </motion.div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
