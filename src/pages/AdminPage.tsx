@@ -3,11 +3,7 @@ import { supabase } from "../lib/supabase";
 import { useRealtimeTurns } from "../hooks/useRealtimeTurns";
 import { useTurnsStore } from "../store/useTurnsStore";
 import ScoreInput from "../components/Public/ScoreInput";
-import {
-  getProgress,
-  getRemaining,
-  getTotalScored,
-} from "../utils/calculations";
+import { getProgress, getTotalScored } from "../utils/calculations";
 import FinishPage from "../components/Public/FinishPage";
 import JourneyMap from "../components/Progress/JourneyMap";
 import DartboardHeader from "../components/Dartboard/DartboardHeader";
