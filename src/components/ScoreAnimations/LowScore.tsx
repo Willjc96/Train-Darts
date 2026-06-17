@@ -18,6 +18,7 @@ export const LowScoreAnimation = ({ total }: Props) => {
         justifyContent: "center",
         pointerEvents: "none",
         zIndex: 55,
+        borderRadius: "20rem",
         background:
           "radial-gradient(circle, rgba(0,0,0,0.45), rgba(0,0,0,0.9))",
       }}

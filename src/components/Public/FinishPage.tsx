@@ -3,6 +3,12 @@ import Confetti from "react-confetti";
 import { ReverseFullTrainEmoji } from "../Emojis";
 import { motion } from "framer-motion";
 import React from "react";
+import {
+  getAverageScore,
+  getNumberOf180s,
+  getNumberOfDartTurns,
+  getNumberOfMisses,
+} from "../../utils/calculations";
 
 // const Wrapper = styled.div`
 //   position: relative;
@@ -45,7 +51,29 @@ const CongratulationsHeader = styled.h1`
 
 const CongratulationsSubHeader = styled.h2`
   position: absolute;
-  top: 30%;
+  top: 35%;
+  color: white;
+`;
+
+const DartsStatistics = styled.h2`
+  position: absolute;
+  top: 50%;
+  color: white;
+`;
+
+const OneHundredEightyStatistics = styled.h2`
+  position: absolute;
+  top: 55%;
+  color: white;
+`;
+const MissStatistics = styled.h2`
+  position: absolute;
+  top: 60%;
+  color: white;
+`;
+const AverageStatistics = styled.h2`
+  position: absolute;
+  top: 65%;
   color: white;
 `;
 
@@ -165,7 +193,30 @@ function RandomTrain() {
 //     </CelebrationWrapper>
 //   );
 // }
+
+import { useEffect, useState } from "react";
+
 export default function FinishPage() {
+  const [totalDarts, setTotalDarts] = useState(0);
+  const [total180s, setTotal180s] = useState(0);
+  const [totalMisses, setTotalMisses] = useState(0);
+  const [totalAverage, setTotalAverage] = useState(0);
+
+  useEffect(() => {
+    async function loadData() {
+      const turns = await getNumberOfDartTurns();
+      const oneHudredEightys = await getNumberOf180s();
+      const misses = await getNumberOfMisses();
+      const average = await getAverageScore();
+      setTotalDarts(3 * (turns || 0));
+      setTotal180s(oneHudredEightys || 0);
+      setTotalMisses(misses || 0);
+      setTotalAverage(average || 0);
+    }
+
+    loadData();
+  }, []);
+
   return (
     // <Wrapper>
     <CelebrationWrapper>
@@ -174,6 +225,14 @@ export default function FinishPage() {
       <CongratulationsSubHeader>
         You Have Reached Your Destination
       </CongratulationsSubHeader>
+      <DartsStatistics>Number of darts thrown: {totalDarts}</DartsStatistics>
+      <OneHundredEightyStatistics>
+        Number of 180's: {total180s}
+      </OneHundredEightyStatistics>
+      <MissStatistics>Number of misses: {totalMisses}</MissStatistics>
+      <AverageStatistics>
+        Average Score: {totalAverage.toFixed(0)}
+      </AverageStatistics>
 
       {/* <motion.div
         initial={{ x: -300 }}

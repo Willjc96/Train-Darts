@@ -1,4 +1,5 @@
 import train from "../../assets/LNER_Train.png";
+import kingsCrossLogo from "../../assets/KingsCross.png";
 import snail from "../../assets/snail.png";
 import cow from "../../assets/Cow.svg";
 import turtle from "../../assets/Turtle.svg";
@@ -47,17 +48,15 @@ export const ReverseWindEmoji = (
 //   </div>
 // );
 // export const ReverseTrainEmoji = <img src={train} alt="" />;
-export const SmallReverseTrainEmoji = ({ progress }: { progress: number }) => {
-  const left = -1565 + (1565 * progress) / 100;
+export const SmallReverseTrainEmoji = () => {
   return (
     <div
       style={{
-        width: "1650px",
-        height: "100px",
+        width: "100%",
+        height: "50px",
         overflow: "hidden",
         position: "relative",
         display: "inline-block",
-        left: "-10px",
       }}
     >
       <img
@@ -65,9 +64,8 @@ export const SmallReverseTrainEmoji = ({ progress }: { progress: number }) => {
         alt=""
         style={{
           position: "absolute",
-          left: `${left}px`, // 0 for 100% progress, -1650px for 0% progress
+          right: "0px",
           top: 0,
-          width: "1565px",
           height: "50px",
         }}
       />
@@ -298,7 +296,7 @@ export const Tree3Emoji = (
 );
 export const Tree4Emoji = (
   <div>
-    <Emoji emoji="🪾" size={68} />
+    <Emoji emoji="🎄" size={68} />
   </div>
 );
 
@@ -318,3 +316,4 @@ export const ReverseCowEmoji = (
     <img src={cow} alt="" style={{ height: "50px", marginTop: "0px" }} />
   </div>
 );
+export const KingsCrossLogo = <img src={kingsCrossLogo} alt="" />;

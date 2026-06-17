@@ -5,9 +5,9 @@ import { GreatScoreAnimation } from "../ScoreAnimations/GreatScore";
 import { GoodScoreAnimation } from "../ScoreAnimations/GoodScore";
 import { MaxScoreAnimation } from "../ScoreAnimations/MaxScore";
 import { ZeroScoreAnimation } from "../ScoreAnimations/ZeroScore";
-import { MissButton, SubmitButton, Svg } from "./Dartboard.styles";
-import { DartboardSections, polarToCartesian } from "./DartboardSections";
-import { BOARD_SIZE, CENTER } from "./constants";
+import { Svg } from "./Dartboard.styles";
+import { DartboardSections } from "./DartboardSections";
+import { BOARD_SIZE } from "./constants";
 import { LowScoreAnimation } from "../ScoreAnimations/LowScore";
 import { DartboardOuterRing } from "./DartboardOuterRing";
 
@@ -46,7 +46,6 @@ interface DartboardProps {
 export default function Dartboard({
   onHit,
   total,
-  darts,
   maxScore,
   zeroScore,
   incredibleScore,
@@ -55,10 +54,7 @@ export default function Dartboard({
   lowScore,
   markers,
   setMarkers,
-  handleSubmit,
 }: DartboardProps) {
-  // const total = darts.reduce((sum, dart) => sum + dart.score, 0);
-
   const scoreAnimationActive = [
     maxScore,
     zeroScore,
@@ -69,7 +65,7 @@ export default function Dartboard({
   ];
   return (
     <>
-      <div style={{ position: "relative", width: "100%" }}>
+      <div style={{ position: "relative", width: "700px" }}>
         {maxScore && <MaxScoreAnimation />}
         {zeroScore && <ZeroScoreAnimation />}
         {incredibleScore && <IncredibleScoreAnimation total={total} />}
@@ -98,58 +94,30 @@ export default function Dartboard({
           </Svg>
         </motion.div>
       </div>
-      {scoreAnimationActive.some((animation) => animation) && (
-        <svg
-          style={{
-            position: "absolute",
-            width: "100%",
-            maxWidth: "700px",
-            height: "auto",
-            display: "block",
-            justifySelf: "center",
-            top: "66px",
-            zIndex: 9999,
-          }}
-          viewBox={`0 0 ${BOARD_SIZE} ${BOARD_SIZE}`}
-        >
-          <DartboardOuterRing />
-        </svg>
-      )}
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          width: "280px",
-          justifySelf: "center",
+          width: "100%",
+          position: "absolute",
+          justifyContent: "center",
         }}
       >
-        <SubmitButton
-          type="button"
-          disabled={darts.length < 3}
-          numberOfDartsThrown={darts.length}
-          onClick={handleSubmit}
-        >
-          Submit
-        </SubmitButton>
-        <MissButton
-          type="button"
-          onClick={() => {
-            setMarkers((prev) => [
-              ...prev.slice(-2),
-              polarToCartesian(CENTER, CENTER, 360, Math.random() * 360),
-              // centerOfBoard, centerOfBoard, distanceFromCenter, randomAngle),
-            ]);
-
-            onHit({
-              label: "MISS",
-              value: 0,
-              multiplier: 1,
-              score: 0,
-            });
-          }}
-        >
-          Miss
-        </MissButton>
+        {scoreAnimationActive.some((animation) => animation) && (
+          <svg
+            style={{
+              position: "absolute",
+              width: "100%",
+              maxWidth: "700px",
+              height: "auto",
+              display: "block",
+              justifySelf: "center",
+              zIndex: 9999,
+            }}
+            viewBox={`0 0 ${BOARD_SIZE} ${BOARD_SIZE}`}
+          >
+            <DartboardOuterRing />
+          </svg>
+        )}
       </div>
     </>
   );

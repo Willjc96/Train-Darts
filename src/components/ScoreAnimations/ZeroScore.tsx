@@ -17,6 +17,7 @@ export const ZeroScoreAnimation = () => {
         justifyContent: "center",
         pointerEvents: "none",
         zIndex: 55,
+        borderRadius: "20rem",
         background:
           "radial-gradient(circle, rgba(0,0,0,0.85), rgba(0,0,0,0.9))",
       }}

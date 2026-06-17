@@ -3,11 +3,22 @@ import { supabase } from "../lib/supabase";
 import { useRealtimeTurns } from "../hooks/useRealtimeTurns";
 import { useTurnsStore } from "../store/useTurnsStore";
 import ScoreInput from "../components/Public/ScoreInput";
+import {
+  getProgress,
+  getRemaining,
+  getTotalScored,
+} from "../utils/calculations";
+import FinishPage from "../components/Public/FinishPage";
+import JourneyMap from "../components/Progress/JourneyMap";
+import DartboardHeader from "../components/Dartboard/DartboardHeader";
+import LocalProgress from "../components/Progress/LocalProgress";
 
 export default function AdminPage() {
   useRealtimeTurns();
 
   const turns = useTurnsStore((state) => state.turns);
+
+  const percentProgress = getProgress(turns);
 
   const [name, setName] = useState("");
   const [score, setScore] = useState("");
@@ -40,9 +51,9 @@ export default function AdminPage() {
     setName("");
   }
 
-  async function undoTurn(id: string) {
-    await supabase.from("turns").update({ is_undone: true }).eq("id", id);
-  }
+  // async function undoTurn(id: string) {
+  //   await supabase.from("turns").update({ is_undone: true }).eq("id", id);
+  // }
 
   async function saveTurn(score: number) {
     const { error } = await supabase.from("turns").insert({
@@ -57,14 +68,15 @@ export default function AdminPage() {
 
     setName("");
   }
-
+  if (percentProgress === 100) return <FinishPage />;
   return (
     <div className="min-h-screen bg-zinc-950 text-white p-8">
-      <div className="max-w-3xl mx-auto">
-        {/* <h1 className="text-4xl font-bold mb-8">Admin Controls</h1> */}
-
+      <div className="max-w-3xl" style={{ display: "grid", gap: "5px" }}>
+        <DartboardHeader />
+        <JourneyMap total={getTotalScored(turns)} />
         <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-          <ScoreInput onSubmitScore={saveTurn} />
+          <ScoreInput onSubmitScore={saveTurn} turns={turns} />
+          <LocalProgress total={getTotalScored(turns)} />
           {/* <input
             type="number"
             placeholder="Score"
@@ -82,55 +94,6 @@ export default function AdminPage() {
             Add Score
           </button> */}
         </form>
-
-        <div className="space-y-4">
-          <h3>Recent Scores</h3>
-          {turns.slice(0, 10).map((turn) => (
-            <div
-              key={turn.id}
-              className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex justify-between items-center"
-            >
-              <div
-                style={{
-                  justifyContent: "center",
-                  display: "flex",
-                  gap: "10px",
-                }}
-                className="flex items-center justify-between gap-3 rounded-lg bg-zinc-900/60 px-4 py-3 border border-zinc-800"
-              >
-                {/* Score */}
-                <div className="flex items-baseline gap-2">
-                  <div className="text-lg font-semibold text-white">
-                    {turn.score}
-                  </div>
-                </div>
-
-                {/* Status / action */}
-                <div className="flex items-center gap-2">
-                  {!turn.is_undone ? (
-                    <button
-                      onClick={() => undoTurn(turn.id)}
-                      className="
-                        text-xs font-medium
-                        px-3 py-1.5
-                        rounded-md
-                        bg-red-500/10 text-red-400
-                        border border-red-500/20
-                        hover:bg-red-500/20 hover:text-red-300
-                        active:scale-95
-                        transition
-                      "
-                    >
-                      Undo
-                    </button>
-                  ) : (
-                    <span className="text-xs text-zinc-600 italic">undone</span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

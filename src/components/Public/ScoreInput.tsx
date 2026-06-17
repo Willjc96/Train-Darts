@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import Dartboard, { type DartHit } from "../Dartboard/Dartboard";
-import DartboardHeader from "../Dartboard/DartboardHeader";
+import { MissButton, SubmitButton } from "../Dartboard/Dartboard.styles";
+import { polarToCartesian } from "../Dartboard/DartboardSections";
+import { CENTER } from "../Dartboard/constants";
 
 import { TripleScoreContainer } from "../Dartboard/TripleScoreContainer";
+import {
+  getRemaining,
+  getTotalScored,
+  TARGET_TOTAL,
+} from "../../utils/calculations";
+import type { Turn } from "../../types/Turn";
+import { supabase } from "../../lib/supabase";
 
 interface ScoreInputProps {
   onSubmitScore: (score: number) => void;
+  turns: Turn[];
 }
 
 // const SubmitButton = styled.button<{ numberOfDartsThrown: number }>`
@@ -33,7 +43,7 @@ interface ScoreInputProps {
 //   }
 // `;
 
-export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
+export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
   const [darts, setDarts] = useState<DartHit[]>([]);
   const [lastTotal, setLastTotal] = useState(0);
   const [markers, setMarkers] = React.useState<{ x: number; y: number }[]>([]);
@@ -43,7 +53,7 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
   const [goodScore, setGoodScore] = useState(false);
   const [lowScore, setLowScore] = useState(false);
   const [zeroScore, setZeroScore] = useState(false);
-
+  const remaining = getRemaining(turns);
   const ANIMATION_DURATION = 4000;
 
   const handleHit = (hit: DartHit) => {
@@ -83,29 +93,161 @@ export default function ScoreInput({ onSubmitScore }: ScoreInputProps) {
     setMarkers([]);
   };
 
+  async function undoTurn(id: string) {
+    await supabase.from("turns").update({ is_undone: true }).eq("id", id);
+  }
+
   const total = darts.reduce((sum, dart) => sum + dart.score, 0);
 
   return (
     <>
-      <DartboardHeader />
-      <Dartboard
-        onHit={handleHit}
-        total={lastTotal}
-        darts={darts}
-        maxScore={maxScore}
-        zeroScore={zeroScore}
-        incredibleScore={incredibleScore}
-        greatScore={greatScore}
-        goodScore={goodScore}
-        lowScore={lowScore}
-        markers={markers}
-        setMarkers={setMarkers}
-        handleSubmit={handleSubmit}
-      />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginTop: "20px",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignSelf: "center",
+            alignItems: "center",
+            width: "25%",
+          }}
+        >
+          <TripleScoreContainer darts={darts} />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "280px",
+              justifySelf: "center",
+            }}
+          >
+            <SubmitButton
+              type="button"
+              disabled={darts.length < 3}
+              numberOfDartsThrown={darts.length}
+              onClick={handleSubmit}
+            >
+              Submit
+            </SubmitButton>
+            <MissButton
+              type="button"
+              onClick={() => {
+                setMarkers((prev) => [
+                  ...prev.slice(-2),
+                  polarToCartesian(CENTER, CENTER, 360, Math.random() * 360),
+                  // centerOfBoard, centerOfBoard, distanceFromCenter, randomAngle),
+                ]);
 
-      <TripleScoreContainer darts={darts} />
+                handleHit({
+                  label: "MISS",
+                  value: 0,
+                  multiplier: 1,
+                  score: 0,
+                });
+              }}
+            >
+              Miss
+            </MissButton>
+          </div>
 
-      <div>Total: {total}</div>
+          <div>Total: {total}</div>
+        </div>
+        <Dartboard
+          onHit={handleHit}
+          total={lastTotal}
+          darts={darts}
+          maxScore={maxScore}
+          zeroScore={zeroScore}
+          incredibleScore={incredibleScore}
+          greatScore={greatScore}
+          goodScore={goodScore}
+          lowScore={lowScore}
+          markers={markers}
+          setMarkers={setMarkers}
+          handleSubmit={handleSubmit}
+        />
+        <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "50px",
+            }}
+          >
+            <div
+              className="text-8xl font-black tracking-wider"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+            >
+              {`${getTotalScored(turns).toLocaleString()} / ${TARGET_TOTAL.toLocaleString()}`}
+            </div>
+            <div className="text-2xl mt-4 text-zinc-400">
+              {`${remaining.toLocaleString()} remaining to reach goal`}
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h3>Recent Scores</h3>
+            {turns.slice(0, 10).map((turn) => (
+              <div
+                key={turn.id}
+                className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex justify-between items-center"
+              >
+                <div
+                  style={{
+                    justifyContent: "end",
+                    display: "flex",
+                    gap: "10px",
+                    marginRight: "40%",
+                  }}
+                  className="flex items-center justify-between gap-3 rounded-lg bg-zinc-900/60 px-4 py-3 border border-zinc-800"
+                >
+                  {/* Score */}
+                  <div className="flex items-baseline gap-2">
+                    <div className="text-lg font-semibold text-white">
+                      {turn.score}
+                    </div>
+                  </div>
+
+                  {/* Status / action */}
+                  <div className="flex items-center gap-2">
+                    {!turn.is_undone ? (
+                      <button
+                        onClick={() => undoTurn(turn.id)}
+                        className="
+                        text-xs font-medium
+                        px-3 py-1.5
+                        rounded-md
+                        bg-red-500/10 text-red-400
+                        border border-red-500/20
+                        hover:bg-red-500/20 hover:text-red-300
+                        active:scale-95
+                        transition
+                      "
+                      >
+                        Undo
+                      </button>
+                    ) : (
+                      <span className="text-xs text-zinc-600 italic">
+                        undone
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       {/* <SubmitButton
         type="button"
         disabled={darts.length < 3}

@@ -5,8 +5,8 @@ import { getJourneyProgress } from "./journeyHelpers";
 
 const Card = styled.div`
   background: #18181b;
-  padding: 1rem;
   border-radius: 16px;
+  padding: 0 80px;
 `;
 
 const Track = styled.div`
@@ -30,11 +30,10 @@ type Props = {
 export default function LocalProgress({ total }: Props) {
   const { currentStation, nextStation, localProgress } =
     getJourneyProgress(total);
-  console.log({ total, localProgress }, nextStation.score);
 
   return (
     <Card>
-      <h3>
+      <h3 style={{ marginTop: "0px", marginBottom: "10px" }}>
         {currentStation.emoji} {currentStation.label}
         {" → "}
         {nextStation.emoji} {nextStation.label}
@@ -47,8 +46,6 @@ export default function LocalProgress({ total }: Props) {
       <p>
         {total.toLocaleString()} / {nextStation.score.toLocaleString()}
       </p>
-
-      <p>{(nextStation.score - total).toLocaleString()} to next station</p>
     </Card>
   );
 }

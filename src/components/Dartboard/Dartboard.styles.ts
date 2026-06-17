@@ -10,11 +10,8 @@ export const colours = {
 };
 
 export const Svg = styled.svg`
-  width: 100%;
-  max-width: 700px;
-  height: auto;
-  display: block;
-  justify-self: center;
+  border-radius: 20rem;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.9));
 `;
 
 export const NumberLabel = styled.text`
