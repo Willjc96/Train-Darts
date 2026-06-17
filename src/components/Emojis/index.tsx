@@ -38,25 +38,12 @@ export const ReverseWindEmoji = (
   </div>
 );
 
-// export const ReverseTrainEmoji = (
-//   <div
-//     style={{
-//       transform: "scaleX(-1)",
-//     }}
-//   >
-//     🚂
-//   </div>
-// );
-// export const ReverseTrainEmoji = <img src={train} alt="" />;
 export const SmallReverseTrainEmoji = () => {
   return (
     <div
       style={{
         width: "100%",
         height: "50px",
-        overflow: "hidden",
-        position: "relative",
-        display: "inline-block",
       }}
     >
       <img
@@ -65,8 +52,48 @@ export const SmallReverseTrainEmoji = () => {
         style={{
           position: "absolute",
           right: "0px",
-          top: 0,
           height: "50px",
+        }}
+      />
+    </div>
+  );
+};
+export const LargeTrainEmoji = () => {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "50px",
+        transform: "scaleX(-1)",
+      }}
+    >
+      <img
+        src={train}
+        alt=""
+        style={{
+          position: "absolute",
+          right: "0px",
+          height: "850px",
+        }}
+      />
+    </div>
+  );
+};
+export const LargeReverseTrainEmoji = () => {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "50px",
+      }}
+    >
+      <img
+        src={train}
+        alt=""
+        style={{
+          position: "absolute",
+          right: "0px",
+          height: "850px",
         }}
       />
     </div>

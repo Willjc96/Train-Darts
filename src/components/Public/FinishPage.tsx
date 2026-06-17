@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import Confetti from "react-confetti";
-import { ReverseFullTrainEmoji } from "../Emojis";
+import {
+  LargeReverseTrainEmoji,
+  LargeTrainEmoji,
+  ReverseFullTrainEmoji,
+} from "../Emojis";
 import { motion } from "framer-motion";
 import React from "react";
 import {
@@ -132,31 +136,72 @@ const DIRECTIONS = [
   },
 ];
 
+type TrainRoute = {
+  id: string;
+  render: (key: number, onComplete: () => void) => React.ReactNode;
+};
+
+const routes: TrainRoute[] = [
+  ...DIRECTIONS.map((route, i) => ({
+    id: `normal-${i}`,
+    render: (key: number, onComplete: () => void) => (
+      <motion.div
+        key={key}
+        initial={route.start}
+        animate={route.end}
+        transition={{ duration: 2, ease: "linear" }}
+        onAnimationComplete={onComplete}
+        style={{ position: "absolute" }}
+      >
+        {ReverseFullTrainEmoji}
+      </motion.div>
+    ),
+  })),
+
+  {
+    id: "special-1",
+    render: (key, onComplete) => (
+      <motion.div
+        key={key}
+        animate={{
+          x: [-1000, -500, 50, 0, 50, -500, -1000],
+        }}
+        transition={{ duration: 5, ease: "linear" }}
+        onAnimationComplete={onComplete}
+        style={{ position: "absolute", top: 0 }}
+      >
+        {LargeReverseTrainEmoji()}
+      </motion.div>
+    ),
+  },
+  {
+    id: "special-2",
+    render: (key, onComplete) => (
+      <motion.div
+        key={key}
+        animate={{
+          x: [1000, 500, 50, 0, 50, 500, 1000],
+        }}
+        transition={{ duration: 5, ease: "linear" }}
+        onAnimationComplete={onComplete}
+        style={{ position: "absolute", top: 0 }}
+      >
+        {LargeTrainEmoji()}
+      </motion.div>
+    ),
+  },
+];
 function RandomTrain() {
   const [routeIndex, setRouteIndex] = React.useState(0);
 
   const route = React.useMemo(
-    () => DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)],
+    () => routes[Math.floor(Math.random() * routes.length)],
     [routeIndex],
   );
 
-  return (
-    <motion.div
-      key={routeIndex}
-      initial={route.start}
-      animate={route.end}
-      transition={{
-        duration: 2,
-        ease: "linear",
-      }}
-      onAnimationComplete={() => {
-        setRouteIndex((v) => v + 1);
-      }}
-      style={{ position: "absolute" }}
-    >
-      {ReverseFullTrainEmoji}
-    </motion.div>
-  );
+  return route.render(routeIndex, () => {
+    setRouteIndex((v) => v + 1);
+  });
 }
 
 // function RandomTrain() {
