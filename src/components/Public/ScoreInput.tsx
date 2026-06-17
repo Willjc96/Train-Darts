@@ -5,11 +5,7 @@ import { polarToCartesian } from "../Dartboard/DartboardSections";
 import { CENTER } from "../Dartboard/constants";
 
 import { TripleScoreContainer } from "../Dartboard/TripleScoreContainer";
-import {
-  getRemaining,
-  getTotalScored,
-  TARGET_TOTAL,
-} from "../../utils/calculations";
+import { getTotalScored, TARGET_TOTAL } from "../../utils/calculations";
 import type { Turn } from "../../types/Turn";
 import { supabase } from "../../lib/supabase";
 
@@ -53,7 +49,6 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
   const [goodScore, setGoodScore] = useState(false);
   const [lowScore, setLowScore] = useState(false);
   const [zeroScore, setZeroScore] = useState(false);
-  const remaining = getRemaining(turns);
   const ANIMATION_DURATION = 4000;
 
   const handleHit = (hit: DartHit) => {
@@ -105,7 +100,8 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
         style={{
           display: "flex",
           flexDirection: "row",
-          marginTop: "20px",
+          marginTop: "10px",
+          marginBottom: "5px",
           justifyContent: "space-between",
         }}
       >
@@ -177,7 +173,7 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
             style={{
               display: "flex",
               flexDirection: "column",
-              marginTop: "50px",
+              marginTop: "5px",
             }}
           >
             <div
@@ -185,15 +181,15 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                marginTop: "20px",
-                marginBottom: "20px",
+                marginTop: "0px",
+                marginBottom: "100px",
               }}
             >
               {`${getTotalScored(turns).toLocaleString()} / ${TARGET_TOTAL.toLocaleString()}`}
             </div>
-            <div className="text-2xl mt-4 text-zinc-400">
+            {/* <div className="text-2xl mt-4 text-zinc-400">
               {`${remaining.toLocaleString()} remaining to reach goal`}
-            </div>
+            </div> */}
           </div>
           <div className="space-y-4">
             <h3>Recent Scores</h3>
