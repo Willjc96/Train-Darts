@@ -49,7 +49,7 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
   const [goodScore, setGoodScore] = useState(false);
   const [lowScore, setLowScore] = useState(false);
   const [zeroScore, setZeroScore] = useState(false);
-  const ANIMATION_DURATION = 4000;
+  const ANIMATION_DURATION = 2000;
 
   const handleHit = (hit: DartHit) => {
     // if (darts.length >= 3) return;
@@ -183,6 +183,9 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
                 flexDirection: "column",
                 marginTop: "0px",
                 marginBottom: "100px",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "20px",
               }}
             >
               {`${getTotalScored(turns).toLocaleString()} / ${TARGET_TOTAL.toLocaleString()}`}
