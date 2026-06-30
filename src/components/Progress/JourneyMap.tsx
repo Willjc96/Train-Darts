@@ -21,17 +21,14 @@ const Line = styled.div`
   height: 6px;
   background: #3f3f46;
   border-radius: 999px;
-  width: 1620px;
+  overflow: hidden;
 `;
 
 const FilledLine = styled.div<{ progress: number }>`
-  position: absolute;
-  top: 52px;
-  left: 40px;
-  height: 6px;
+  height: 100%;
+  width: ${({ progress }) => progress}%;
   background: #fbbf24;
-  border-radius: 999px;
-  width: ${({ progress }) => MAX_WIDTH * (progress / 100)}px;
+  border-radius: inherit;
 `;
 
 const Stations = styled.div`
@@ -52,13 +49,18 @@ const Label = styled.div`
   font-size: 0.75rem;
 `;
 
-const Train = styled(motion.div)<{ progress: number }>`
+const TrainTrack = styled.div`
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 40px;
   right: 40px;
+`;
+
+const Train = styled(motion.div)<{ progress: number }>`
+  position: absolute;
+  left: ${({ progress }) => progress}%;
   font-size: 3rem;
-  width: ${({ progress }) => (MAX_WIDTH * progress) / 100}px;
+  transform: translateX(-50%);
 `;
 
 type Props = {
@@ -71,22 +73,20 @@ export default function JourneyMap({ total }: Props) {
   const maxScore = JOURNEY_STATIONS[JOURNEY_STATIONS.length - 1].score;
   return (
     <Wrapper>
-      <div style={{ width: "100%" }}>
-        <Line />
-        <FilledLine progress={overallProgress} />
+      <div>
+        <Line>
+          <FilledLine progress={overallProgress} />
+        </Line>
 
-        <Train
-          progress={overallProgress}
-          animate={{
-            y: [0, -4, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 1,
-          }}
-        >
-          <SmallReverseTrainEmoji />
-        </Train>
+        <TrainTrack>
+          <Train
+            progress={overallProgress}
+            animate={{ y: [0, -4, 0] }}
+            transition={{ repeat: Infinity, duration: 1 }}
+          >
+            <SmallReverseTrainEmoji />
+          </Train>
+        </TrainTrack>
       </div>
 
       <Stations>
