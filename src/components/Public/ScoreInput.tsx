@@ -5,13 +5,14 @@ import { polarToCartesian } from "../Dartboard/DartboardSections";
 import { CENTER } from "../Dartboard/constants";
 
 import { TripleScoreContainer } from "../Dartboard/TripleScoreContainer";
-import { getTotalScored, TARGET_TOTAL } from "../../utils/calculations";
 import type { Turn } from "../../types/Turn";
-import { supabase } from "../../lib/supabase";
+import { TARGET_TOTAL } from "../../utils/calculations";
 
 interface ScoreInputProps {
   onSubmitScore: (score: number) => void;
+  onUndoTurn: (id: string) => void;
   turns: Turn[];
+  totalScored: number;
 }
 
 // const SubmitButton = styled.button<{ numberOfDartsThrown: number }>`
@@ -39,7 +40,12 @@ interface ScoreInputProps {
 //   }
 // `;
 
-export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
+export default function ScoreInput({
+  onSubmitScore,
+  onUndoTurn,
+  turns,
+  totalScored,
+}: ScoreInputProps) {
   const [darts, setDarts] = useState<DartHit[]>([]);
   const [lastTotal, setLastTotal] = useState(0);
   const [markers, setMarkers] = React.useState<{ x: number; y: number }[]>([]);
@@ -87,10 +93,6 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
     setDarts([]);
     setMarkers([]);
   };
-
-  async function undoTurn(id: string) {
-    await supabase.from("turns").update({ is_undone: true }).eq("id", id);
-  }
 
   const total = darts.reduce((sum, dart) => sum + dart.score, 0);
 
@@ -188,7 +190,7 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
                 fontSize: "20px",
               }}
             >
-              {`${getTotalScored(turns).toLocaleString()} / ${TARGET_TOTAL.toLocaleString()}`}
+              {`${totalScored.toLocaleString()} / ${TARGET_TOTAL.toLocaleString()}`}
             </div>
             {/* <div className="text-2xl mt-4 text-zinc-400">
               {`${remaining.toLocaleString()} remaining to reach goal`}
@@ -221,7 +223,7 @@ export default function ScoreInput({ onSubmitScore, turns }: ScoreInputProps) {
                   <div className="flex items-center gap-2">
                     {!turn.is_undone ? (
                       <button
-                        onClick={() => undoTurn(turn.id)}
+                        onClick={() => onUndoTurn(turn.id)}
                         className="
                         text-xs font-medium
                         px-3 py-1.5

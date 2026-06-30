@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase";
 import { useRealtimeTurns } from "../hooks/useRealtimeTurns";
 import { useTurnsStore } from "../store/useTurnsStore";
 import ScoreInput from "../components/Public/ScoreInput";
-import { getProgress, getTotalScored } from "../utils/calculations";
+import { TARGET_TOTAL } from "../utils/calculations";
 import FinishPage from "../components/Public/FinishPage";
 import JourneyMap from "../components/Progress/JourneyMap";
 import DartboardHeader from "../components/Dartboard/DartboardHeader";
@@ -13,8 +13,8 @@ export default function AdminPage() {
   useRealtimeTurns();
 
   const turns = useTurnsStore((state) => state.turns);
-
-  const percentProgress = getProgress(turns);
+  const totalScored = useTurnsStore((state) => state.totalScored);
+  const percentProgress = (totalScored / TARGET_TOTAL) * 100;
 
   const [name, setName] = useState("");
   const [score, setScore] = useState("");
@@ -50,6 +50,16 @@ export default function AdminPage() {
   // async function undoTurn(id: string) {
   //   await supabase.from("turns").update({ is_undone: true }).eq("id", id);
   // }
+  async function undoTurn(id: string) {
+    const { error } = await supabase
+      .from("turns")
+      .update({ is_undone: true })
+      .eq("id", id);
+
+    if (error) {
+      setError(error.message);
+    }
+  }
 
   async function saveTurn(score: number) {
     const { error } = await supabase.from("turns").insert({
@@ -69,10 +79,15 @@ export default function AdminPage() {
     <div className="min-h-screen bg-zinc-950 text-white p-8">
       <div className="max-w-3xl" style={{ display: "grid", gap: "5px" }}>
         <DartboardHeader />
-        <JourneyMap total={getTotalScored(turns)} />
+        <JourneyMap total={totalScored} />
         <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-          <ScoreInput onSubmitScore={saveTurn} turns={turns} />
-          <LocalProgress total={getTotalScored(turns)} />
+          <ScoreInput
+            onSubmitScore={saveTurn}
+            onUndoTurn={undoTurn}
+            turns={turns}
+            totalScored={totalScored}
+          />
+          <LocalProgress total={totalScored} />
           {/* <input
             type="number"
             placeholder="Score"

@@ -4,20 +4,31 @@ import { useTurnsStore } from "../store/useTurnsStore";
 
 export function useRealtimeTurns() {
   const setTurns = useTurnsStore((state) => state.setTurns);
+  const setTotalScored = useTurnsStore((state) => state.setTotalScored);
 
   useEffect(() => {
-    async function loadTurns() {
-      const { data } = await supabase
+    async function loadData() {
+      const { data: turns } = await supabase
         .from("turns")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .range(0, 20);
 
-      if (data) {
-        setTurns(data);
+      const { data: total, error: totalError } =
+        await supabase.rpc("get_total_scored");
+
+      if (totalError) {
+        console.error(totalError);
+        return;
       }
+
+      setTotalScored(Number(total || 0));
+      console.log("RPC total:", total);
+      setTurns(turns || []);
+      console.log("RPC total:", total);
     }
 
-    loadTurns();
+    loadData();
 
     const channel = supabase
       .channel("turns-channel")
@@ -28,14 +39,12 @@ export function useRealtimeTurns() {
           schema: "public",
           table: "turns",
         },
-        () => {
-          loadTurns();
-        },
+        loadData,
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [setTurns]);
+  }, [setTurns, setTotalScored]);
 }
